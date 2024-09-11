@@ -22,6 +22,9 @@
 						start: "",
 						center: "",
 						end: "multiMonthYear dayGridMonth"
+					},
+					dateClick: (info) => {
+						console.log(`Clicked on ${info.dateStr}`);
 					}
 				});
 				
@@ -32,5 +35,6 @@
 	
 	<body>
 		<div id="calendar"></div>
+		<input type="time" />
 	</body>
 </html>
