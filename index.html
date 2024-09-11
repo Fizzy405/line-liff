@@ -14,9 +14,14 @@
 				const calendar = new FullCalendar.Calendar(calendarElement, {
 					initialView: "dayGridMonth",
 					headerToolbar: {
+						start: "title",
+						center: "",
+						end: "prev today next"
+					},
+					footerToolbar: {
 						start: "",
-						center: "multiMonthYear dayGridMonth prev next",
-						end: ""
+						center: "",
+						end: "multiMonthYear dayGridMonth"
 					}
 				});
 				
