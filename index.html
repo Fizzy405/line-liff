@@ -12,8 +12,27 @@
 			document.addEventListener("DOMContentLoaded", () => {
 				const calendarElement = document.getElementById("calendar");
 				const calendar = new FullCalendar.Calendar(calendarElement, {
+					aspectRatio: 0.95,
 					initialView: "dayGridMonth",
-					aspectRatio: 1,
+					
+					customButtons: {
+						toggleMonthYearView: {
+							text: "Year View",
+							hint: "Toggles between Month / Year view",
+							click: (event) => {
+								if (calendar.view.type === "dayGridMonth") {
+									calendar.changeView("multiMonthYear");
+									calendar.getOption("customButtons").toggleMonthYearView.text = "Month View";
+									calendar.setOption("buttonText", { "customButtons": "Month View" });
+								} else if (calendar.view.type === "multiMonthYear") {
+									calendar.changeView("dayGridMonth");
+									calendar.getOption("customButtons").toggleMonthYearView.text = "Year View";
+									calendar.setOption("buttonText", { "customButtons": "Year View" });
+								}
+							}
+						}
+					},
+					
 					headerToolbar: {
 						start: "title",
 						center: "",
@@ -22,10 +41,11 @@
 					footerToolbar: {
 						start: "",
 						center: "",
-						end: "multiMonthYear dayGridMonth"
+						end: "toggleMonthYearView"
 					},
+					
 					dateClick: (info) => {
-						console.log(`Clicked on ${info.dateStr}`);
+						calendar.gotoDate(info.date);
 					}
 				});
 				
