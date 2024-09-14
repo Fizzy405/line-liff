@@ -10,43 +10,66 @@
 		<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
 		<script>
 			document.addEventListener("DOMContentLoaded", () => {
-				const calendarElement = document.getElementById("calendar");
-				const calendar = new FullCalendar.Calendar(calendarElement, {
+				const calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
 					aspectRatio: 0.95,
 					initialView: "dayGridMonth",
 					
 					customButtons: {
-						toggleMonthYearView: {
+						setToMonthView: {
+							text: "Month View",
+							click: () => {
+								calendar.changeView("dayGridMonth");
+							},
+						},
+						setToYearView: {
 							text: "Year View",
-							hint: "Toggles between Month / Year view",
-							click: (event) => {
-								if (calendar.view.type === "dayGridMonth") {
-									calendar.changeView("multiMonthYear");
-									calendar.getOption("customButtons").toggleMonthYearView.text = "Month View";
-									calendar.setOption("buttonText", { "customButtons": "Month View" });
-								} else if (calendar.view.type === "multiMonthYear") {
-									calendar.changeView("dayGridMonth");
-									calendar.getOption("customButtons").toggleMonthYearView.text = "Year View";
-									calendar.setOption("buttonText", { "customButtons": "Year View" });
-								}
-							}
-						}
+							click: () => {
+								calendar.changeView("multiMonthYear");
+							},
+						},
+						backToMonthView: {
+							text: "Back",
+							click: () => {
+								calendar.changeView("dayGridMonth");
+							},
+						},
+						addEventOrAlarm: {
+							text: "+",
+							hint: "Add an event or an alarm",
+							click: () => {
+								document.getElementById("calendar").style.display = "none";
+								document.getElementById("form").style.display = "inline";
+							},
+						},
 					},
 					
-					headerToolbar: {
-						start: "title",
-						center: "",
-						end: "prev next"
-					},
-					footerToolbar: {
-						start: "",
-						center: "",
-						end: "toggleMonthYearView"
+					viewDidMount: () => {
+						const headerToolbar = { start: "title", center: "", end: "", };
+						const footerToolbar = { start: "", center: "", end: "", };
+						
+						switch (calendar.view.type) {
+							case "dayGridMonth":
+								headerToolbar.end = "prev next";
+								footerToolbar.end = "setToYearView";
+								break;
+							case "multiMonthYear":
+								headerToolbar.end = "prev next";
+								footerToolbar.end = "setToMonthView";
+								break;
+							case "listDay":
+								headerToolbar.end = "backToMonthView";
+								footerToolbar.end = "addEventOrAlarm";
+								break;
+						}
+						
+						calendar.setOption("headerToolbar", headerToolbar);
+						calendar.setOption("footerToolbar", footerToolbar);
 					},
 					
 					dateClick: (info) => {
 						calendar.gotoDate(info.date);
-					}
+						calendar.changeView("listDay");
+					},
 				});
 				
 				calendar.render();
@@ -56,6 +79,35 @@
 	
 	<body>
 		<div id="calendar"></div>
-		<input type="time" />
+		
+		<form id="form" style="display: none">
+			<input type="radio" id="is_event" name="event_or_alarm" value="event" required checked>
+			<label for="is_event">Event</label>
+			<input type="radio" id="is_alarm" name="event_or_alarm" value="alarm" required>
+			<label for="is_alarm">Alarm</label>
+			
+			<br>
+			
+			<input type="checkbox" id="notify" name="notify" value="notify" checked>
+			<label for="notify">Notify</label>
+			
+			<br>
+			
+			<input type="radio" id="is_instant" name="instant_or_lengthy" value="instant" required checked>
+			<label for="is_event">Instant Event</label>
+			<input type="radio" id="is_lengthy" name="instant_or_lengthy" value="lengthy" required>
+			<label for="is_alarm">Lengthy Event</label>
+			
+			<br>
+			
+			<label for="set_name">Set Name: </label>
+			<input type="text" id="set_name" name="name" required>
+			
+			<br>
+			
+			<input type="submit" value="Submit">
+		</form>
+		
+		<input type="number" min="0" max="60">
 	</body>
 </html>
