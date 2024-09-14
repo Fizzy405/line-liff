@@ -80,7 +80,7 @@
 	<body>
 		<div id="calendar"></div>
 		
-		<form id="form" <!--action="https://GVgKNQvWHfPkffhaQyva.com"--> style="display: none">
+		<form id="form" style="display: none">
 			<input type="radio" id="is_event" name="event_or_alarm" value="event" required checked>
 			<label for="is_event">Event</label>
 			<input type="radio" id="is_alarm" name="event_or_alarm" value="alarm" required>
@@ -137,7 +137,7 @@
 				document.getElementById("is_event").checked ? status.event_or_alarm = "event" : null;
 				document.getElementById("is_alarm").checked ? status.event_or_alarm = "alarm" : null;
 				
-				//document.getElementById("is_instant").checked ? status.instant_or_lengthy = "instant" : null;
+				document.getElementById("is_instant").checked ? status.instant_or_lengthy = "instant" : null;
 				document.getElementById("is_lengthy").checked ? status.instant_or_lengthy = "lengthy" : null;
 				
 				JSON.stringify(status).includes("INIT_VAL") ? alert("Error: status not updated") : null;
