@@ -80,7 +80,7 @@
 	<body>
 		<div id="calendar"></div>
 		
-		<form id="form" style="display: none">
+		<form id="form" <!--action="https://GVgKNQvWHfPkffhaQyva.com"--> style="display: none">
 			<input type="radio" id="is_event" name="event_or_alarm" value="event" required checked>
 			<label for="is_event">Event</label>
 			<input type="radio" id="is_alarm" name="event_or_alarm" value="alarm" required>
@@ -100,14 +100,48 @@
 			
 			<br>
 			
-			<label for="set_name">Set Name: </label>
-			<input type="text" id="set_name" name="name" required>
+			In:&ensp;&ensp;
+			<input type="number" id="event_duration_years" name="event_duration_years" value="0" min="0" max="99">
+			<label for="event_duration_years">Years</label>&ensp;
+			<input type="number" id="event_duration_months" name="event_duration_months" value="0" min="0" max="99">
+			<label for="event_duration_months">Months</label>&ensp;
+			<input type="number" id="event_duration_days" name="event_duration_days" value="0" min="0" max="999">
+			<label for="event_duration_days">Days</label>&ensp;
+			<input type="number" id="event_duration_hours" name="event_duration_hours" min="0" max="999">
+			<label for="event_duration_hours">Hours</label>&ensp;
+			<input type="number" id="event_duration_minutes" name="event_duration_minutes" min="0" max="999">
+			<label for="event_duration_minutes">Minutes</label>
+			
+			<br>
+			
+			Ends at:&ensp;&ensp;
+			<input type="date" id="event_end_date" name="event_end_date" value="" min="">&ensp;
+			<input type="time" id="event_end_time" name="event_end_time">
+			
+			<br>
+			
+			<input type="text" id="set_name" name="name" placeholder="Enter Name" required>
 			
 			<br>
 			
 			<input type="submit" value="Submit">
 		</form>
 		
-		<input type="tel">
+		<script>
+			const status = {
+				event_or_alarm: "INIT_VAL",
+				instant_or_lengthy: "INIT_VAL",
+			};
+			
+			document.addEventListener("DOMContentLoaded", () => {
+				document.getElementById("is_event").checked ? status.event_or_alarm = "event" : null;
+				document.getElementById("is_alarm").checked ? status.event_or_alarm = "alarm" : null;
+				
+				//document.getElementById("is_instant").checked ? status.instant_or_lengthy = "instant" : null;
+				document.getElementById("is_lengthy").checked ? status.instant_or_lengthy = "lengthy" : null;
+				
+				JSON.stringify(status).includes("INIT_VAL") ? alert("Error: status not updated") : null;
+			});
+		</script>
 	</body>
 </html>
