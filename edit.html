@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="en" data-theme="light">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<title>Calendar</title>
+		
+		<link id="pico_css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+		<link id="custom_css" rel="stylesheet" href="css/edit.css">
+	</head>
+	
+	<body>
+		<form id="form">
+			<b>Select type:</b><br data-bottom-m>
+			<input type="radio" id="is_event" name="event_or_alarm" value="event" required checked>
+			<label for="is_event">Event</label><br data-bottom-s>
+			<input type="radio" id="is_alarm" name="event_or_alarm" value="alarm" required>
+			<label for="is_alarm">Alarm</label><br data-bottom-l>
+			
+			<div id="if_event" data-indent>
+				<input type="checkbox" id="notify" name="notify" value="notify" checked>
+				<label for="notify">Notify</label><br><br>
+				
+				<b>Select event type:</b><br data-bottom-m>
+				<input type="radio" id="is_instant" name="instant_or_lengthy" value="instant" required checked>
+				<label for="is_instant">Instant Event</label><br data-bottom-s>
+				<input type="radio" id="is_lengthy" name="instant_or_lengthy" value="lengthy" required>
+				<label for="is_lengthy">Lengthy Event</label><br data-bottom-l>
+				
+				<div id="if_lengthy" data-indent>
+					<div id="event_duration_div">
+						<b>Select duration:</b><br data-bottom-m>
+						<div>
+							<label for="event_duration_years">Years</label>
+							<input type="number" id="event_duration_years" name="event_duration_years" value="0" min="0" max="99">
+						</div>
+						<div>
+							<label for="event_duration_months">Months</label>
+							<input type="number" id="event_duration_months" name="event_duration_months" value="0" min="0" max="99">
+						</div>
+						<div>
+							<label for="event_duration_days">Days</label>
+							<input type="number" id="event_duration_days" name="event_duration_days" value="0" min="0" max="999">
+						</div>
+						<div>
+							<label for="event_duration_hours">Hours</label>
+							<input type="number" id="event_duration_hours" name="event_duration_hours" min="0" max="999">
+						</div>
+						<div>
+							<label for="event_duration_minutes">Minutes</label>
+							<input type="number" id="event_duration_minutes" name="event_duration_minutes" min="0" max="999">
+						</div>
+						
+						<button type="button" id="event_duration_button">
+							<img src="icons/calendar.png" alt="Select date">
+						</button>
+					</div>
+					
+					<div id="event_end_div">
+						<b>Select date:</b><br data-bottom-m>
+						<input type="date" id="event_end_date" name="event_end_date">
+						<input type="time" id="event_end_time" name="event_end_time">
+						
+						<button type="button" id="event_end_button">
+							<img src="icons/hourglass.png" alt="Select duration">
+						</button>
+					</div>
+					
+					<br data-bottom-l>
+				</div>
+			</div>
+			
+			<input type="text" id="set_name" name="name" placeholder="Enter Name" required>
+			
+			<br>
+			
+			<input type="submit" value="Save">
+		</form>
+		
+		<script src="js/edit.js"></script>
+	</body>
+</html>
