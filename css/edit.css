@@ -1,0 +1,53 @@
+form {
+	margin: 0.5rem;
+	padding: 0.5rem;
+	background-color: #f1f1f1;
+	border: 1px solid #dddddd;
+	border-radius: 10px;
+	font: 1.2rem Arial, Helvetica Neue, Helvetica, sans-serif;
+}
+
+div#event_duration_div div {
+	position: relative;
+	margin-bottom: 0.3rem;
+}
+
+div#event_duration_div label {
+	position: absolute;
+	top: 0;
+	right: 0.5rem;
+	bottom: 0;
+	margin: 0;
+	display: flex;
+	align-items: center;
+}
+
+div#event_duration_div input {
+	margin: 0;
+}
+
+div#event_end_div input {
+	margin-bottom: 0.3rem;
+}
+
+div#event_duration_div button,
+div#event_end_div button {
+	margin: 0;
+	padding: 8px;
+}
+
+[data-indent] {
+	padding-left: 1.0rem;
+}
+
+[data-bottom-s] {
+	margin-bottom: 0.3rem;
+}
+
+[data-bottom-m] {
+	margin-bottom: 0.5rem;
+}
+
+[data-bottom-l] {
+	margin-bottom: 1.5rem;
+}
