@@ -12,6 +12,11 @@ form b {
 	margin-bottom: 0.5rem;
 }
 
+form img {
+	width: 32px;
+	height: 32px;
+}
+
 div {
 	position: relative;
 }
