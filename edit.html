@@ -13,68 +13,175 @@
 	
 	<body>
 		<form id="form">
-			<b>Select type:</b><br data-bottom-m>
-			<input type="radio" id="is_event" name="event_or_alarm" value="event" required checked>
-			<label for="is_event">Event</label><br data-bottom-s>
-			<input type="radio" id="is_alarm" name="event_or_alarm" value="alarm" required>
-			<label for="is_alarm">Alarm</label><br data-bottom-l>
+			<b>Select type:</b>
+			<div data-styling-div>
+				<input type="radio" id="is_event" name="event_or_alarm" value="event" required>
+				<label for="is_event">Event</label>
+			</div>
+			<div data-styling-div>
+				<input type="radio" id="is_alarm" name="event_or_alarm" value="alarm" required>
+				<label for="is_alarm">Alarm</label>
+			</div>
+			
+			<br>
 			
 			<div id="if_event" data-indent>
-				<input type="checkbox" id="notify" name="notify" value="notify" checked>
+				<input type="checkbox" id="notify" name="notify" value="notify">
 				<label for="notify">Notify</label><br><br>
 				
-				<b>Select event type:</b><br data-bottom-m>
-				<input type="radio" id="is_instant" name="instant_or_lengthy" value="instant" required checked>
-				<label for="is_instant">Instant Event</label><br data-bottom-s>
-				<input type="radio" id="is_lengthy" name="instant_or_lengthy" value="lengthy" required>
-				<label for="is_lengthy">Lengthy Event</label><br data-bottom-l>
+				<b>Select event type:</b>
+				<div data-styling-div>
+					<input type="radio" id="is_instant" name="instant_or_lengthy" value="instant" required>
+					<label for="is_instant">Instant Event</label>
+				</div>
+				<div data-styling-div>
+					<input type="radio" id="is_lengthy" name="instant_or_lengthy" value="lengthy" required>
+					<label for="is_lengthy">Lengthy Event</label>
+				</div>
+				
+				<br>
 				
 				<div id="if_lengthy" data-indent>
 					<div id="event_duration_div">
-						<b>Select duration:</b><br data-bottom-m>
-						<div>
-							<label for="event_duration_years">Years</label>
-							<input type="number" id="event_duration_years" name="event_duration_years" value="0" min="0" max="99">
+						<b>Set event duration:</b>
+						<div data-styling-div>
+							<label for="event_duration_years" data-set-as-unit>Years</label>
+							<input type="number" id="event_duration_years" name="event_duration_years" value="0" min="0" max="99" required>
 						</div>
-						<div>
-							<label for="event_duration_months">Months</label>
-							<input type="number" id="event_duration_months" name="event_duration_months" value="0" min="0" max="99">
+						<div data-styling-div>
+							<label for="event_duration_months" data-set-as-unit>Months</label>
+							<input type="number" id="event_duration_months" name="event_duration_months" value="0" min="0" max="99" required>
 						</div>
-						<div>
-							<label for="event_duration_days">Days</label>
-							<input type="number" id="event_duration_days" name="event_duration_days" value="0" min="0" max="999">
+						<div data-styling-div>
+							<label for="event_duration_days" data-set-as-unit>Days</label>
+							<input type="number" id="event_duration_days" name="event_duration_days" value="0" min="0" max="999" required>
 						</div>
-						<div>
-							<label for="event_duration_hours">Hours</label>
-							<input type="number" id="event_duration_hours" name="event_duration_hours" min="0" max="999">
+						<div data-styling-div>
+							<label for="event_duration_hours" data-set-as-unit>Hours</label>
+							<input type="number" id="event_duration_hours" name="event_duration_hours" min="0" max="999" required>
 						</div>
-						<div>
-							<label for="event_duration_minutes">Minutes</label>
-							<input type="number" id="event_duration_minutes" name="event_duration_minutes" min="0" max="999">
+						<div data-styling-div>
+							<label for="event_duration_minutes" data-set-as-unit>Minutes</label>
+							<input type="number" id="event_duration_minutes" name="event_duration_minutes" min="0" max="999" required>
 						</div>
 						
 						<button type="button" id="event_duration_button">
-							<img src="icons/calendar.png" alt="Select date">
+							<img src="icons/calendar.png" alt="Select event end date">
 						</button>
 					</div>
 					
 					<div id="event_end_div">
-						<b>Select date:</b><br data-bottom-m>
-						<input type="date" id="event_end_date" name="event_end_date">
-						<input type="time" id="event_end_time" name="event_end_time">
+						<b>Select event end date:</b>
+						<div data-styling-div>
+							<input type="date" id="event_end_date" name="event_end_date" required>
+						</div>
+						<div data-styling-div>
+							<input type="time" id="event_end_time" name="event_end_time" required>
+						</div>
 						
 						<button type="button" id="event_end_button">
-							<img src="icons/hourglass.png" alt="Select duration">
+							<img src="icons/hourglass.png" alt="Set event duration">
 						</button>
 					</div>
 					
-					<br data-bottom-l>
+					<br>
 				</div>
 			</div>
 			
-			<input type="text" id="set_name" name="name" placeholder="Enter Name" required>
+			<div data-styling-div>
+				<input type="text" id="set_name" name="name" placeholder="Enter Name" required>
+			</div>
 			
 			<br>
+			
+			<div data-styling-div>
+				<input type="checkbox" id="repeat" name="repeat" value="repeat">
+				<label for="repeat">Repeat</label>
+			</div>
+			
+			<br>
+			
+			<div id="if_repeat" data-indent>
+				<b>Set interval:</b>
+				<div data-styling-div>
+					<label for="repeat_interval_years" data-set-as-unit>Years</label>
+					<input type="number" id="repeat_interval_years" name="repeat_interval_years" value="0" min="0" max="99" required>
+				</div>
+				<div data-styling-div>
+					<label for="repeat_interval_months" data-set-as-unit>Months</label>
+					<input type="number" id="repeat_interval_months" name="repeat_interval_months" value="0" min="0" max="99" required>
+				</div>
+				<div data-styling-div>
+					<label for="repeat_interval_days" data-set-as-unit>Days</label>
+					<input type="number" id="repeat_interval_days" name="repeat_interval_days" value="0" min="0" max="999" required>
+				</div>
+				<div data-styling-div>
+					<label for="repeat_interval_hours" data-set-as-unit>Hours</label>
+					<input type="number" id="repeat_interval_hours" name="repeat_interval_hours" min="0" max="999" required>
+				</div>
+				<div data-styling-div>
+					<label for="repeat_interval_minutes" data-set-as-unit>Minutes</label>
+					<input type="number" id="repeat_interval_minutes" name="repeat_interval_minutes" min="0" max="999" required>
+				</div>
+				
+				<br>
+				
+				<div id="repeat_end_div">
+					<b>Select repetition end date:</b>
+					<div data-styling-div>
+						<input type="date" id="repeat_end_date" name="repeat_end_date" required>
+					</div>
+					<div data-styling-div>
+						<input type="time" id="repeat_end_time" name="repeat_end_time" required>
+					</div>
+					
+					<button type="button" id="repeat_end_button">
+						<img src="icons/index.png" alt="Set repetition index">
+					</button>
+				</div>
+				
+				<div id="repeat_index_div">
+					<b>Set repetition index:</b>
+					<div data-styling-div>
+						<label for="repeat_index" data-set-as-unit>Times</label>
+						<input type="number" id="repeat_index" name="repeat_index" min="0" max="999" required>
+					</div>
+					
+					<button type="button" id="repeat_index_button">
+						<img src="icons/hourglass.png" alt="Set repetition duration">
+					</button>
+				</div>
+				
+				<div id="repeat_duration_div">
+					<b>Set repetition duration:</b>
+					<div data-styling-div>
+						<label for="repeat_duration_years" data-set-as-unit>Years</label>
+						<input type="number" id="repeat_duration_years" name="repeat_duration_years" value="0" min="0" max="99" required>
+					</div>
+					<div data-styling-div>
+						<label for="repeat_duration_months" data-set-as-unit>Months</label>
+						<input type="number" id="repeat_duration_months" name="repeat_duration_months" value="0" min="0" max="99" required>
+					</div>
+					<div data-styling-div>
+						<label for="repeat_duration_days" data-set-as-unit>Days</label>
+						<input type="number" id="repeat_duration_days" name="repeat_duration_days" value="0" min="0" max="999" required>
+					</div>
+					<div data-styling-div>
+						<label for="repeat_duration_hours" data-set-as-unit>Hours</label>
+						<input type="number" id="repeat_duration_hours" name="repeat_duration_hours" min="0" max="999" required>
+					</div>
+					<div data-styling-div>
+						<label for="repeat_duration_minutes" data-set-as-unit>Minutes</label>
+						<input type="number" id="repeat_duration_minutes" name="repeat_duration_minutes" min="0" max="999" required>
+					</div>
+					
+					<button type="button" id="repeat_duration_button">
+						<img src="icons/calendar.png" alt="Select repetition end date">
+					</button>
+				</div>
+				
+				<br>
+			</div>
 			
 			<input type="submit" value="Save">
 		</form>

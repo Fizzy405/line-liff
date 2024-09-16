@@ -7,12 +7,24 @@ form {
 	font: 1.2rem Arial, Helvetica Neue, Helvetica, sans-serif;
 }
 
-div#event_duration_div div {
+form b {
+	display: block;
+	margin-bottom: 0.5rem;
+}
+
+div {
 	position: relative;
+}
+
+[data-styling-div] {
 	margin-bottom: 0.3rem;
 }
 
-div#event_duration_div label {
+[data-indent] {
+	padding-left: 1.5rem;
+}
+
+[data-set-as-unit] {
 	position: absolute;
 	top: 0;
 	right: 0.5rem;
@@ -22,32 +34,13 @@ div#event_duration_div label {
 	align-items: center;
 }
 
-div#event_duration_div input {
+[data-set-as-unit] + input,
+input[type="date"],
+input[type="time"] {
 	margin: 0;
 }
 
-div#event_end_div input {
-	margin-bottom: 0.3rem;
-}
-
-div#event_duration_div button,
-div#event_end_div button {
-	margin: 0;
+#form button {
+	margin: 10;
 	padding: 8px;
-}
-
-[data-indent] {
-	padding-left: 1.0rem;
-}
-
-[data-bottom-s] {
-	margin-bottom: 0.3rem;
-}
-
-[data-bottom-m] {
-	margin-bottom: 0.5rem;
-}
-
-[data-bottom-l] {
-	margin-bottom: 1.5rem;
 }
