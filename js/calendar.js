@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			alert(typeof liff.getIDToken() === "undefined");
 			alert(liff.getIDToken() === null);
 			alert(typeof liff.getIDToken() === "object");
-			alert(typeof liff.getIDToken());
+			alert(liff.getIDToken());
 		})
 		.catch((err) => {
 			alert(`Error: LIFF initialization failed: ${err}`);
