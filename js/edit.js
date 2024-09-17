@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	
 	updateCollapsible();
 	
-	alert(typeof liff === undefined);
+	alert(typeof liff.getIDToken());
 	
 	liff
 		.init({
