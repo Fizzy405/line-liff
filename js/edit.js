@@ -165,10 +165,10 @@ document.addEventListener("DOMContentLoaded", () => {
 			liffId: "2006289768-NrQ6QZLK",
 		})
 		.then(() => {
-			console.log("a");
+			console.log(liff.getIDToken());
 			fetch("https://script.google.com/macros/s/AKfycbzxjYqUDMjRCoWsU3Qjr4uWHY8U8fHZ1HDNomiWkUlUj4eqAZP5K36x6CEX7Nyt7Aar/exec", {
 				method: "POST",
-				body: liff.getIDToken(),
+				body: JSON.stringify(liff.getIDToken()),
 				redirect: "follow",
 			}).then((res) => {
 				return res.text();
