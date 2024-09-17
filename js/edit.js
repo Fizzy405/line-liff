@@ -159,4 +159,34 @@ document.addEventListener("DOMContentLoaded", () => {
 	};
 	
 	updateCollapsible();
+	
+	liff
+		.init({
+			liffId: "2006289768-NrQ6QZLK",
+		})
+		.then(() => {
+			console.log("a");
+			fetch("https://script.google.com/macros/s/AKfycbzxjYqUDMjRCoWsU3Qjr4uWHY8U8fHZ1HDNomiWkUlUj4eqAZP5K36x6CEX7Nyt7Aar/exec", {
+				method: "POST",
+				body: liff.getIDToken(),
+				redirect: "follow",
+			}).then((res) => {
+				return res.text();
+			}).then((res) => {
+				console.log(res);
+			});
+		})
+		.catch((err) => {
+			alert(`Error: LIFF initialization failed: ${err}`);
+		});
+	
+	/*fetch("https://script.google.com/macros/s/AKfycbzxjYqUDMjRCoWsU3Qjr4uWHY8U8fHZ1HDNomiWkUlUj4eqAZP5K36x6CEX7Nyt7Aar/exec", {
+		method: "POST",*/
+		/*body: "Test Text",*/
+		/*redirect: "follow",
+	}).then((res) => {
+		return res.text();
+	}).then((res) => {
+		console.log(res);
+	});*/
 });
