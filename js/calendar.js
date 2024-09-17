@@ -79,9 +79,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		.init({
 			liffId: "2006289768-NrQ6QZLK",
 		})
-		.then(() => {
-			alert(liff.getIDToken());
-		})
 		.catch((err) => {
 			alert(`Error: LIFF initialization failed: ${err}`);
 		});
