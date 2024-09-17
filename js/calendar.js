@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	
 	calendar.render();
 	
-	/*liff
+	liff
 		.init({
 			liffId: "2006289768-NrQ6QZLK",
 		})
@@ -84,5 +84,5 @@ document.addEventListener("DOMContentLoaded", () => {
 		})
 		.catch((err) => {
 			alert(`Error: LIFF initialization failed: ${err}`);
-		});*/
+		});
 });
