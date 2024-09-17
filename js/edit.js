@@ -160,6 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	
 	updateCollapsible();
 	
+	alert("alert works");
+	
 	liff
 		.init({
 			liffId: "2006289768-NrQ6QZLK",
