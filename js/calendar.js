@@ -82,4 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		.catch((err) => {
 			alert(`Error: LIFF initialization failed: ${err}`);
 		});
+	
+	alert(sessionStorage.getItem("temp_for_liff"));
+	sessionStorage.setItem("temp_for_liff", "aaa");
 });

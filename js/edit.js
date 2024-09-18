@@ -160,14 +160,28 @@ document.addEventListener("DOMContentLoaded", () => {
 	
 	updateCollapsible();
 	
+	document.getElementById("form_submit_button").onclick = () => {
+		if (document.getElementById("repeat_end_date").value === "" && document.getElementById("repeat_end_time").value === "") {
+			document.getElementById("repeat_end_date").removeAttribute("required");
+			document.getElementById("repeat_end_time").removeAttribute("required");
+		} else {
+			document.getElementById("repeat_end_date").setAttribute("required", "");
+			document.getElementById("repeat_end_time").setAttribute("required", "");
+		}
+	};
+	
+	document.getElementById("form").onsubmit = (event) => {
+		event.preventDefault();
+	};
+	
 	liff
 		.init({
 			liffId: "2006289768-NrQ6QZLK",
 		})
 		.then(() => {
-			fetch("https://script.google.com/macros/s/AKfycbzxjYqUDMjRCoWsU3Qjr4uWHY8U8fHZ1HDNomiWkUlUj4eqAZP5K36x6CEX7Nyt7Aar/exec", {
+			fetch("https://script.google.com/macros/s/AKfycbzzsiUsPrLP1PPYYwmlyr8lvCk6rxYJUT5HxqDVr5tiVR2SexSt2SCPetj8p01v55zf/exec", {
 				method: "POST",
-				body: liff.getIDToken(),
+				body: JSON.stringify({a:1}),
 				redirect: "follow",
 			}).then((res) => {
 				return res.text();
@@ -179,13 +193,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			alert(`Error: LIFF initialization failed: ${err}`);
 		});
 	
-	/*fetch("https://script.google.com/macros/s/AKfycbzxjYqUDMjRCoWsU3Qjr4uWHY8U8fHZ1HDNomiWkUlUj4eqAZP5K36x6CEX7Nyt7Aar/exec", {
-		method: "POST",*/
-		/*body: "Test Text",*/
-		/*redirect: "follow",
-	}).then((res) => {
-		return res.text();
-	}).then((res) => {
-		console.log(res);
-	});*/
+	alert(sessionStorage.getItem("temp_for_liff"));
+	sessionStorage.setItem("temp_for_liff", "aaa");
 });
