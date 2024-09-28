@@ -13,6 +13,13 @@
 	
 	<body>
 		<form id="form">
+			<b>Select date:</b>
+			<div data-styling-div>
+				<input type="date" id="date" name="date" required>
+			</div>
+			
+			<br>
+			
 			<b>Select type:</b>
 			<div data-styling-div>
 				<input type="radio" id="is_event" name="event_or_alarm" value="event" required>
@@ -26,7 +33,7 @@
 			<br>
 			
 			<div id="if_event" data-indent>
-				<input type="checkbox" id="notify" name="notify" value="notify">
+				<input type="checkbox" id="notify" name="notify" value="true">
 				<label for="notify">Notify</label><br><br>
 				
 				<b>Select event type:</b>
@@ -89,13 +96,13 @@
 			</div>
 			
 			<div data-styling-div>
-				<input type="text" id="set_name" name="name" placeholder="Enter Name" required>
+				<input type="text" id="name" name="name" placeholder="Enter Name" required>
 			</div>
 			
 			<br>
 			
 			<div data-styling-div>
-				<input type="checkbox" id="repeat" name="repeat" value="repeat">
+				<input type="checkbox" id="repeat" name="repeat" value="true">
 				<label for="repeat">Repeat</label>
 			</div>
 			
@@ -144,7 +151,7 @@
 					<b>Set repetition index:</b>
 					<div data-styling-div>
 						<label for="repeat_index" data-set-as-unit>Times</label>
-						<input type="number" id="repeat_index" name="repeat_index" min="0" max="999" required>
+						<input type="number" id="repeat_index" name="repeat_index" min="-1" max="999" required>
 					</div>
 					
 					<button type="button" id="repeat_index_button">

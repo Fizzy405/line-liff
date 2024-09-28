@@ -1,4 +1,4 @@
-const status = {
+const default_data = {
 	event_or_alarm: "event",
 	notify: true,
 	instant_or_lengthy: "instant",
@@ -7,23 +7,49 @@ const status = {
 	date_or_index_or_duration: "date",
 };
 
+const storage_item = sessionStorage.getItem("calendar_liff_data");
+
+const data = storage_item === null ? default_data : { ...default_data, ...JSON.parse(storage_item) };
+
+data.notify === "true" ? data.notify = true : null;
+data.repeat === "true" ? data.repeat = true : null;
+data.notify === "false" ? data.notify = false : null;
+data.repeat === "false" ? data.repeat = false : null;
+
+if (typeof data.notify !== "boolean") {
+	data.notify = default_data.notify;
+}
+if (typeof data.repeat !== "boolean") {
+	data.repeat = default_data.repeat;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
-	const url = new URL(window.location.href);
-	const decoded_params = decodeURIComponent(url.search);
-	const clicked_date = new URLSearchParams(decoded_params).get("date");
+	function updateValues() {
+		if (Object.hasOwn(data, "date")) {
+			document.getElementById("event_end_date").value = data.date;
+			document.getElementById("event_end_date").min = data.date;
+		} else {
+			alert("Error: date not recognized");
+		}
+		
+		document.getElementById("is_event").checked = data.event_or_alarm === "event";
+		document.getElementById("is_alarm").checked = data.event_or_alarm === "alarm";
+		
+		document.getElementById("notify").checked = data.notify;
+		
+		document.getElementById("is_instant").checked = data.instant_or_lengthy === "instant";
+		document.getElementById("is_lengthy").checked = data.instant_or_lengthy === "lengthy";
+		
+		document.getElementById("repeat").checked = data.repeat;
+		
+		for (key in data) {
+			if (!Object.hasOwn(default_data, key) && typeof data[key] === "string") {
+				document.getElementById(key).value = data[key];
+			}
+		}
+	}
 	
-	document.getElementById("event_end_date").value = clicked_date;
-	document.getElementById("event_end_date").min = clicked_date;
-	
-	document.getElementById("is_event").checked = status.event_or_alarm === "event";
-	document.getElementById("is_alarm").checked = status.event_or_alarm === "alarm";
-	
-	document.getElementById("notify").checked = status.notify;
-	
-	document.getElementById("is_instant").checked = status.instant_or_lengthy === "instant";
-	document.getElementById("is_lengthy").checked = status.instant_or_lengthy === "lengthy";
-	
-	document.getElementById("repeat").checked = status.repeat;
+	updateValues();
 	
 	function toggleOn(elementIds) {
 		for (elementId of elementIds) {
@@ -63,11 +89,11 @@ document.addEventListener("DOMContentLoaded", () => {
 		toggleOff("if_event");
 		toggleOff("if_repeat");
 		
-		if (status.event_or_alarm === "event") {
+		if (data.event_or_alarm === "event") {
 			toggleOn(["if_event", "notify", "is_instant", "is_lengthy"]);
 			
-			if (status.instant_or_lengthy === "lengthy") {
-				switch (status.duration_or_date) {
+			if (data.instant_or_lengthy === "lengthy") {
+				switch (data.duration_or_date) {
 					case "duration":
 						toggleOn(["if_lengthy", "event_duration_div", "event_duration_years", "event_duration_months", "event_duration_days", "event_duration_hours", "event_duration_minutes", "event_duration_button"]);
 						break;
@@ -77,19 +103,19 @@ document.addEventListener("DOMContentLoaded", () => {
 						break;
 					
 					default:
-						alert("Error: status corrupted");
+						alert("Error: data corrupted");
 				}
-			} else if (status.instant_or_lengthy !== "instant") {
-				alert("Error: status corrupted");
+			} else if (data.instant_or_lengthy !== "instant") {
+				alert("Error: data corrupted");
 			}
-		} else if (status.event_or_alarm !== "alarm") {
-			alert("Error: status corrupted");
+		} else if (data.event_or_alarm !== "alarm") {
+			alert("Error: data corrupted");
 		}
 		
-		if (status.repeat) {
+		if (data.repeat) {
 			toggleOn(["if_repeat", "repeat_interval_years", "repeat_interval_months", "repeat_interval_days", "repeat_interval_hours", "repeat_interval_minutes"]);
 			
-			switch (status.date_or_index_or_duration) {
+			switch (data.date_or_index_or_duration) {
 				case "date":
 					toggleOn(["repeat_end_div", "repeat_end_date", "repeat_end_time", "repeat_end_button"]);
 					break;
@@ -103,58 +129,58 @@ document.addEventListener("DOMContentLoaded", () => {
 					break;
 				
 				default:
-					alert("Error: status corrupted");
+					alert("Error: data corrupted");
 			}
 		}
 	}
 	
 	document.getElementById("is_event").onclick = () => {
-		status.event_or_alarm = "event";
+		data.event_or_alarm = "event";
 		updateCollapsible();
 	};
 	document.getElementById("is_alarm").onclick = () => {
-		status.event_or_alarm = "alarm";
+		data.event_or_alarm = "alarm";
 		updateCollapsible();
 	};
 	
 	document.getElementById("notify").onclick = () => {
-		status.notify = !status.notify;
+		data.notify = !data.notify;
 		updateCollapsible();
 	};
 	
 	document.getElementById("is_instant").onclick = () => {
-		status.instant_or_lengthy = "instant";
+		data.instant_or_lengthy = "instant";
 		updateCollapsible();
 	};
 	document.getElementById("is_lengthy").onclick = () => {
-		status.instant_or_lengthy = "lengthy";
+		data.instant_or_lengthy = "lengthy";
 		updateCollapsible();
 	};
 	
 	document.getElementById("event_duration_button").onclick = () => {
-		status.duration_or_date = "date";
+		data.duration_or_date = "date";
 		updateCollapsible();
 	};
 	document.getElementById("event_end_button").onclick = () => {
-		status.duration_or_date = "duration";
+		data.duration_or_date = "duration";
 		updateCollapsible();
 	};
 	
 	document.getElementById("repeat").onclick = () => {
-		status.repeat = !status.repeat;
+		data.repeat = !data.repeat;
 		updateCollapsible();
 	};
 	
 	document.getElementById("repeat_end_button").onclick = () => {
-		status.date_or_index_or_duration = "index";
+		data.date_or_index_or_duration = "index";
 		updateCollapsible();
 	};
 	document.getElementById("repeat_index_button").onclick = () => {
-		status.date_or_index_or_duration = "duration";
+		data.date_or_index_or_duration = "duration";
 		updateCollapsible();
 	};
 	document.getElementById("repeat_duration_button").onclick = () => {
-		status.date_or_index_or_duration = "date";
+		data.date_or_index_or_duration = "date";
 		updateCollapsible();
 	};
 	
@@ -171,28 +197,83 @@ document.addEventListener("DOMContentLoaded", () => {
 	};
 	
 	document.getElementById("form").onsubmit = (event) => {
+		alert("Form submitted before LIFF was initialized - Please try again later");
+		
 		event.preventDefault();
 	};
 	
-	liff
-		.init({
+	liff.init({
 			liffId: "2006289768-NrQ6QZLK",
 		})
 		.then(() => {
-			fetch("https://script.google.com/macros/s/AKfycbzzsiUsPrLP1PPYYwmlyr8lvCk6rxYJUT5HxqDVr5tiVR2SexSt2SCPetj8p01v55zf/exec", {
-				method: "POST",
-				body: JSON.stringify({a:1}),
-				redirect: "follow",
-			}).then((res) => {
-				return res.text();
-			}).then((res) => {
-				console.log(res);
-			});
+			document.getElementById("form").onsubmit = (event) => {
+				const data_to_send = {};
+				
+				for ([key, value] of new FormData(document.getElementById("form"))) {
+					if (typeof key !== "string") {
+						alert(`${key} is not a string`);
+					}
+					if (typeof value !== "string") {
+						alert(`${value} is not a string`);
+					}
+					
+					data_to_send[key] = value;
+				}
+				
+				if (data_to_send.event_or_alarm === "event" && !Object.hasOwn(data_to_send, "notify")) {
+					data_to_send["notify"] = "false";
+				}
+				if (!Object.hasOwn(data_to_send, "repeat")) {
+					data_to_send["repeat"] = "false";
+				}
+				
+				if (!document.getElementById("event_duration_button").hasAttribute("disabled")) {
+					data_to_send["duration_or_date"] = "duration";
+				}
+				if (!document.getElementById("event_end_button").hasAttribute("disabled")) {
+					data_to_send["duration_or_date"] = "date";
+				}
+				
+				if (!document.getElementById("repeat_end_button").hasAttribute("disabled")) {
+					data_to_send["date_or_index_or_duration"] = "date";
+				}
+				if (!document.getElementById("repeat_index_button").hasAttribute("disabled")) {
+					data_to_send["date_or_index_or_duration"] = "index";
+				}
+				if (!document.getElementById("repeat_duration_button").hasAttribute("disabled")) {
+					data_to_send["date_or_index_or_duration"] = "duration";
+				}
+				
+				data_to_send["id_token"] = liff.getIDToken();
+				
+				if (data_to_send["id_token"] === null) {
+					alert("ID Token could not be retrieved");
+					data_to_send["id_token"] = "TEST_USER";
+				}
+				
+				fetch("https://script.google.com/macros/s/AKfycbzzsiUsPrLP1PPYYwmlyr8lvCk6rxYJUT5HxqDVr5tiVR2SexSt2SCPetj8p01v55zf/exec", {
+					headers: {
+						"Content-Type": "text/plain;charset=utf-8",
+					},
+					method: "POST",
+					body: JSON.stringify(data_to_send),
+					redirect: "follow",
+				}).then((res) => {
+					if (!res.ok) {
+						throw new Error(`Failed with HTTP status code ${res.status}`);
+					}
+					
+					return res.text();
+				}).then((res) => {
+					console.log(res);
+				}).catch((err) => {
+					console.log(err);
+				});
+				
+				event.preventDefault();
+			};
 		})
 		.catch((err) => {
 			alert(`Error: LIFF initialization failed: ${err}`);
 		});
-	
-	alert(sessionStorage.getItem("temp_for_liff"));
-	sessionStorage.setItem("temp_for_liff", "aaa");
 });

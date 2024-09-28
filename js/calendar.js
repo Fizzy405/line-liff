@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-	let clicked_date = null;
+	const data = {
+		date: null,
+	};
 	
 	const calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
 		aspectRatio: 0.95,
@@ -28,11 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
 				text: "+",
 				hint: "Add an event or an alarm",
 				click: () => {
-					if (clicked_date !== null) {
-						const url_param_string = `date=${clicked_date}`;
-						const encoded_param = encodeURIComponent(url_param_string);
-						
-						window.location.replace(`edit.html?${encoded_param}`);
+					if (data.date !== null) {
+						sessionStorage.setItem("calendar_liff_data", JSON.stringify(data));
+						window.location.replace("edit.html");
 					} else {
 						alert("Error: date not recognized");
 					}
@@ -41,8 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		},
 		
 		viewDidMount: () => {
-			const headerToolbar = { start: "title", center: "", end: "", };
-			const footerToolbar = { start: "", center: "", end: "", };
+			const headerToolbar = { start: "title", center: "", end: "" };
+			const footerToolbar = { start: "", center: "", end: "" };
 			
 			switch (calendar.view.type) {
 				case "dayGridMonth":
@@ -69,20 +69,18 @@ document.addEventListener("DOMContentLoaded", () => {
 			calendar.gotoDate(info.date);
 			calendar.changeView("listDay");
 			
-			clicked_date = info.dateStr;
+			data.date = info.dateStr;
 		},
 	});
 	
+	sessionStorage.removeItem("calendar_liff_data");
+	
 	calendar.render();
 	
-	liff
-		.init({
+	liff.init({
 			liffId: "2006289768-NrQ6QZLK",
 		})
 		.catch((err) => {
 			alert(`Error: LIFF initialization failed: ${err}`);
 		});
-	
-	alert(sessionStorage.getItem("temp_for_liff"));
-	sessionStorage.setItem("temp_for_liff", "aaa");
 });
